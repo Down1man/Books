@@ -44,15 +44,17 @@ def get_all_books():
 
 @app.get("/books_by")
 def get_book_by(author_name: str, from_y: int, to_y: int, acquired_book: bool):
+    wynik = []
     for x in db.query(book.Book).all():
         lista = x.publication_year.split("-")
         year = int(lista[0])
         if author_name in x.author and (from_y <= year <= to_y) and x.acquired == acquired_book:
-            return x
-    raise HTTPException(
-        status_code=404,
-        detail=f"There is no such book"
-    )
+            wynik.append(x)
+    return wynik
+    #raise HTTPException(
+     #   status_code=404,
+      #  detail=f"There is no such book"
+    #)
 
 
 @app.get("/books/{book_id}", response_model=Book)

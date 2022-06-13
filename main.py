@@ -48,7 +48,7 @@ def get_book_by(author_name: str, from_y: int, to_y: int, acquired_book: bool):
         lista = x.publication_year.split("-")
         year = int(lista[0])
         if author_name in x.author and (from_y <= year <= to_y) and x.acquired == acquired_book:
-            return x.title
+            return x
     raise HTTPException(
         status_code=404,
         detail=f"There is no such book"
